@@ -9,13 +9,14 @@ import (
 )
 
 func main() {
+	// Use the signature of the handler to register on server routes
 	http.HandleFunc("/", getRoot)
 	http.HandleFunc("/hello", getHello)
 
-    // use default server multiplexer
+    // "nil" means use default server multiplexer
 	err := http.ListenAndServe(":3333", nil)
     if errors.Is(err, http.ErrServerClosed) {
-		fmt.Printf("Server closed. Typically expected.\n")
+		fmt.Printf("Server closed. Typical behavior.\n")
 	} else if err != nil {
 		fmt.Printf("Error starting server: %s\n", err)
 		os.Exit(1)
@@ -23,8 +24,11 @@ func main() {
 }
 
 func getRoot(writer http.ResponseWriter, request_ptr *http.Request) {
-	fmt.Printf("got / request\n")
-	io.WriteString(writer, "Here's a sample root response!\n")
+	fmt.Printf("got / request, parsing as POST\n")
+
+	// TODO parse POST request
+	// need to store sender, reciever, and message
+	io.WriteString(writer, "sent!\n")
 }
 
 func getHello(writer http.ResponseWriter, request_ptr *http.Request) {
