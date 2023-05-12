@@ -4,12 +4,20 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"encoding/json"
 	"net/http"
 	"os"
 	"time"
 
 	"github.com/gorilla/mux"
 )
+
+type MessageEntry struct {
+	From    string `json:"from"`
+	To      string `json:"to"`
+	Message string `json:"message"`
+	At      int64  `json:"at"`
+}
 
 func main() {
 	router := mux.NewRouter()
@@ -31,17 +39,32 @@ func main() {
 		fmt.Printf("Server closed. Typical behavior.\n")
 	} else if err != nil {
 		fmt.Println(err)
-		// fmt.Printf("Error starting server: %s\n", err)
+		fmt.Printf("Error starting server: %s\n", err)
 		os.Exit(1)
 	}
 }
 
 func postRoot(writer http.ResponseWriter, request_ptr *http.Request) {
 	fmt.Printf("heard / request, parsing as POST\n")
+	fmt.Printf("request: %s\n", request_ptr)
 	io.WriteString(writer, "sent!\n")
 
-	// TODO parse POST request
-	fmt.Printf("request: %s\n", request_ptr)
+	// Parse POST request and add timestamp
+	var me MessageEntry
+	err := json.NewDecoder(request_ptr.Body).Decode(&me)
+	if err != nil {
+		fmt.Printf("logging parsing error: %s\n", err)
+		http.Error(writer, "Failed to parse JSON", http.StatusBadRequest)
+		return
+	}
+	me.At = time.Now().Unix()
+
+	// Access the parsed values
+	fmt.Printf("Decoded message: %+v\n", me)
+	fmt.Printf("From: %s\n", me.From)
+	fmt.Printf("To: %s\n", me.To)
+	fmt.Printf("Message: %s\n", me.Message)
+	fmt.Printf("Timestamp: %d\n", me.At)
 
 	// TODO need to store sender, reciever, and message in HashMap by peoplepair
 }

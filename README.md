@@ -2,6 +2,9 @@
 Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Currently
 in-progress!
 
+Time estimate: 15hr
+Time spent: *~5hr* so far
+
 ## Getting Started
 Clone this repo and run `go run main.go` in the cloned directory. To make a GET request, try
 
@@ -27,11 +30,9 @@ Here are the resources I used to build this. This was my first time writing anyt
 think this section should be beginner-friendly, assuming you have some programming background!
 
 - [Go by Example](https://gobyexample.com/)
-- [HTTP Server in Go](https://www.digitalocean.com/community/tutorials/how-to-make-an-http-server-in-go)
+- [DigitalOcean's "HTTP Server in Go" Article](https://www.digitalocean.com/community/tutorials/how-to-make-an-http-server-in-go)
 - [http.ServeMux documentation](https://pkg.go.dev/net/http#ServeMux)
-- [gorilla/mux](https://github.com/gorilla/mux) (not actively maintained as of Dec. 2022)
-- [Blogpost about Go routers](https://www.alexedwards.net/blog/which-go-router-should-i-use)
-
-## Backburner
-1. How to make sure a POST request to root is denied?
-2. Unit testing!
+- [gorilla/mux GitHub repo](https://github.com/gorilla/mux) (not actively maintained as of Dec. 2022)
+- [Alex Edwards's blogpost about Go routers](https://www.alexedwards.net/blog/which-go-router-should-i-use)
+- [Go json package decode(v) documentation](https://pkg.go.dev/encoding/json#Decoder.Decode)
+- [Alex Edwards's blogpost about parsing a Go request body](https://www.alexedwards.net/blog/how-to-properly-parse-a-json-request-body)
