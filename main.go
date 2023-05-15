@@ -22,7 +22,9 @@ type MessageEntry struct {
 func main() {
 	router := mux.NewRouter()
 	// Use the signature of the handler to register on server routes
-	router.HandleFunc("/{userNameA}/{userNameB}/{fromTimeStamp}", getPeopleTime).Methods("GET")
+	router.
+		HandleFunc("/{userNameA}/{userNameB}/{fromTimeStamp}", getPeopleTime).
+		Methods("GET")
 	router.HandleFunc("/", postRoot).Methods("POST")
 
     // "nil" means use default server multiplexer
@@ -38,7 +40,6 @@ func main() {
     if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("Server closed. Typical behavior.\n")
 	} else if err != nil {
-		fmt.Println(err)
 		fmt.Printf("Error starting server: %s\n", err)
 		os.Exit(1)
 	}
@@ -76,7 +77,4 @@ func getPeopleTime(writer http.ResponseWriter, request_ptr *http.Request) {
 	routeVars := mux.Vars(request_ptr)
 	// fmt.Printf("request: %s\n", request_ptr)
 	fmt.Printf("userNameA: %s, userNameB: %s, fromTimeStamp: %s\n", routeVars["userNameA"], routeVars["userNameB"], routeVars["fromTimeStamp"])
-
-	// TODO return all relevant messages with sender reciever, time
-	// TODO appropriate content header
 }

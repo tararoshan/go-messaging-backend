@@ -1,9 +1,8 @@
 # Go Messaging Service
-Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Currently
-in-progress!
+Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Currently in-progress!
 
 Time estimate: 15hr
-Time spent: *~5hr* so far
+Time spent: *~6hr* so far
 
 ## Getting Started
 Clone this repo and run `go run main.go` in the cloned directory. To make a GET request, try
@@ -25,9 +24,11 @@ Here's my idea (written using Java names, but you get the gist):
     - Edit: since I need to know who was the sender/reciever, store this in the array as well.
 - when we have a GET request, look for the (personA, personB) key in the HashMap and then using that key's ArrayList arrays, binary search through by timestamp to find the starting index from which we should start printing messages!
 
+5/14/23 Update:
+Considering using [Redis](https://redis.io/docs/about/) to take care of concurrency issues. I'll stick with using a global HashMap and two locks ([reader and writer](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock)) instead, though. I want to stay simple for now.
+
 ## Reading
-Here are the resources I used to build this. This was my first time writing anything in Go, so I
-think this section should be beginner-friendly, assuming you have some programming background!
+Here are the resources I used to build this. This was my first time writing anything in Go, so I think this section should be beginner-friendly, assuming you have some programming background!
 
 - [Go by Example](https://gobyexample.com/)
 - [DigitalOcean's "HTTP Server in Go" Article](https://www.digitalocean.com/community/tutorials/how-to-make-an-http-server-in-go)
