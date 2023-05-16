@@ -5,7 +5,7 @@ Time estimate: 15hr
 Time spent: *~6hr* so far
 
 ## Getting Started
-Clone this repo and run `go run main.go` in the cloned directory. To make a GET request, try
+Clone this repo and run `go install *.go && go run *.go` in the cloned directory. To make a GET request, try
 
 ```bash
 curl http://localhost:3333
@@ -25,7 +25,10 @@ Here's my idea (written using Java names, but you get the gist):
 - when we have a GET request, look for the (personA, personB) key in the HashMap and then using that key's ArrayList arrays, binary search through by timestamp to find the starting index from which we should start printing messages!
 
 5/14/23 Update:
-Considering using [Redis](https://redis.io/docs/about/) to take care of concurrency issues. I'll stick with using a global HashMap and two locks ([reader and writer](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock)) instead, though. I want to stay simple for now.
+Considering using [Redis](https://redis.io/docs/about/) to take care of concurrency issues. I'll stick with using a global HashMap and lock ([reader and writer](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock)) instead, though. I want to stay simple for now.
+
+5/16/23 Update:
+It's not simple at all, but I still want to try.
 
 ## Reading
 Here are the resources I used to build this. This was my first time writing anything in Go, so I think this section should be beginner-friendly, assuming you have some programming background!

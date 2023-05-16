@@ -12,12 +12,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
-type MessageEntry struct {
-	From    string `json:"from"`
-	To      string `json:"to"`
-	Message string `json:"message"`
-	At      int64  `json:"at"`
-}
+// Defined in messagemap.go
+var messagemap *MessageMap
 
 func main() {
 	router := mux.NewRouter()
@@ -36,6 +32,7 @@ func main() {
         Handler: router,
     }
 
+	messagemap = makeMessageMap()
 	err := srv.ListenAndServe()
     if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("Server closed. Typical behavior.\n")
@@ -47,7 +44,7 @@ func main() {
 
 func postRoot(writer http.ResponseWriter, request_ptr *http.Request) {
 	fmt.Printf("heard / request, parsing as POST\n")
-	fmt.Printf("request: %s\n", request_ptr)
+	// fmt.Printf("request: %s\n", request_ptr)
 	io.WriteString(writer, "sent!\n")
 
 	// Parse POST request and add timestamp
