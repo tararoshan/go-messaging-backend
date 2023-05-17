@@ -41,3 +41,4 @@ Here are the resources I used to build this. This was my first time writing anyt
 - [Go json package decode(v) documentation](https://pkg.go.dev/encoding/json#Decoder.Decode)
 - [Alex Edwards's blogpost about parsing a Go request body](https://www.alexedwards.net/blog/how-to-properly-parse-a-json-request-body)
 - [JSON and Go](https://go.dev/blog/json)
+- [sort package](https://pkg.go.dev/sort)
