@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "net/http"
+	"net/http"
 	"sync"
 )
 
@@ -41,15 +41,36 @@ func makeMessageMap() *MessageMap {
 	return messagemap
 }
 
-// func (messagemap *MessageMap) enterMessage(message MessageEntry) {
+// TODO synchronization
+func (messagemap *MessageMap) enterMessage(message MessageEntry) {
+	// Determine the PeoplePair to use
+	alphabeticalpair := message.From > message.To ? message.From + message.To : message.To + message.From 
 
-// }
+	// Add the key-value to the map or append to slice
+	// Note: I assume the messages are given lock priority in the order they
+	// were sent, so it's okay to add to the end!
+	if key, ok := messagemap[alphabeticalpair]; ok {
+		messagemap[alphabeticalpair] = append(messagemap[alphabeticalpair], message)
+	} else {
+		// Make the slice
+		size := 3
+		messagemap[alphabeticalpair] := make([]MessageEntry, size)
+		messagemap[alphabeticalpair][0] = message
+	}
+	return
+}
 
-// func (messagemap *MessageMap) getPeopleMessagesAfterTimestamp(pp PeoplePair, timestamp int64) []MessageEntry {
+func (messagemap *MessageMap) getPeopleMessagesAfterTimestamp(pp PeoplePair, timestamp int64) []MessageEntry {
 
-// }
+}
 
-// // Save time by not copying the array twice
-// func (messagemap *MessageMap) printPeopleMessagesAfterTimestamp(pp PeoplePair, timestamp int64, writer http.ResponseWriter) {
+// Save time by not copying the array twice
+func (messagemap *MessageMap) printPeopleMessagesAfterTimestamp(pp PeoplePair, timestamp int64, writer http.ResponseWriter) {
+	writer.Header().Set("Content-Type", "application/json")
+	writer.WriteHeader(http.StatusOK)
 
-// }
+	// find the index
+	for i := ??; i < len(array); i++ {
+
+	}
+}

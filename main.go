@@ -65,6 +65,7 @@ func postRoot(writer http.ResponseWriter, request_ptr *http.Request) {
 	fmt.Printf("Timestamp: %d\n", me.At)
 
 	// TODO need to store sender, reciever, and message in HashMap by peoplepair
+	return
 }
 
 func getPeopleTime(writer http.ResponseWriter, request_ptr *http.Request) {
@@ -74,4 +75,5 @@ func getPeopleTime(writer http.ResponseWriter, request_ptr *http.Request) {
 	routeVars := mux.Vars(request_ptr)
 	// fmt.Printf("request: %s\n", request_ptr)
 	fmt.Printf("userNameA: %s, userNameB: %s, fromTimeStamp: %s\n", routeVars["userNameA"], routeVars["userNameB"], routeVars["fromTimeStamp"])
+	return
 }

@@ -2,7 +2,7 @@
 Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Currently in-progress!
 
 Time estimate: 15hr
-Time spent: *~6hr* so far
+Time spent: *~8hr + 40m* so far
 
 ## Getting Started
 Clone this repo and run `go install *.go && go run *.go` in the cloned directory. To make a GET request, try
@@ -40,3 +40,4 @@ Here are the resources I used to build this. This was my first time writing anyt
 - [Alex Edwards's blogpost about Go routers](https://www.alexedwards.net/blog/which-go-router-should-i-use)
 - [Go json package decode(v) documentation](https://pkg.go.dev/encoding/json#Decoder.Decode)
 - [Alex Edwards's blogpost about parsing a Go request body](https://www.alexedwards.net/blog/how-to-properly-parse-a-json-request-body)
+- [JSON and Go](https://go.dev/blog/json)
