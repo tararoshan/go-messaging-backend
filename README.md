@@ -2,7 +2,7 @@
 Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Currently in-progress!
 
 Time estimate: 15hr
-Time spent: *~8hr + 40m* so far
+Time spent: *~9hr + 40m* so far
 
 ## Getting Started
 Clone this repo and run `go install *.go && go run *.go` in the cloned directory. To make a GET request, try

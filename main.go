@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -65,15 +66,29 @@ func postRoot(writer http.ResponseWriter, request_ptr *http.Request) {
 	fmt.Printf("Timestamp: %d\n", me.At)
 
 	// TODO need to store sender, reciever, and message in HashMap by peoplepair
+	messagemap.enterMessage(me)
 	return
 }
 
 func getPeopleTime(writer http.ResponseWriter, request_ptr *http.Request) {
-	fmt.Printf("heard /hello request, responding as GET\n")
+	fmt.Printf("heard /userA/userB/time request, responding as GET\n")
 	io.WriteString(writer, "GETting your data!\n")
 
 	routeVars := mux.Vars(request_ptr)
 	// fmt.Printf("request: %s\n", request_ptr)
 	fmt.Printf("userNameA: %s, userNameB: %s, fromTimeStamp: %s\n", routeVars["userNameA"], routeVars["userNameB"], routeVars["fromTimeStamp"])
+
+	fmt.Println()
+
+	if len(routeVars["userNameA"]) == 0 || len(routeVars["userNameB"]) == 0 {
+		return
+	}
+
+	timestamp, err := strconv.ParseInt(routeVars["fromTimeStamp"], 10, 64)
+	if err != nil {
+		fmt.Printf("Error parsing timestamp from message. Error: ", err)
+	}
+	// Content-Type header taken care of in method
+	messagemap.printPeopleMessagesAfterTimestamp(getPeoplePair(routeVars["userNameA"], routeVars["userNameB"]), timestamp, writer)
 	return
 }

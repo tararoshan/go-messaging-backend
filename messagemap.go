@@ -45,12 +45,17 @@ func makeMessageMap() *MessageMap {
 	return messagemap
 }
 
-func (messagemap *MessageMap) enterMessage(message MessageEntry) {
-	// Determine the PeoplePair to use
-	alphabeticalpair := message.To + message.From 
-	if message.From > message.To {
-		alphabeticalpair = message.From + message.To
+func getPeoplePair(nameA string, nameB string) string {
+	// Determine the PeoplePair to use, for consistency
+	result := nameA + nameB 
+	if nameB > nameA {
+		result = nameB + nameA
 	}
+	return result
+}
+
+func (messagemap *MessageMap) enterMessage(message MessageEntry) {
+	alphabeticalpair := getPeoplePair(message.To, message.From)
 
 	messagemap.Mu.Lock()
 	defer messagemap.Mu.Unlock()
@@ -62,8 +67,9 @@ func (messagemap *MessageMap) enterMessage(message MessageEntry) {
 		messagemap.Data[alphabeticalpair] = append(messagesplice, message)
 	} else {
 		// Make the slice
-		size := 3
-		messagemap.Data[alphabeticalpair] = make([]MessageEntry, size)
+		size := 1
+		capacity := 4
+		messagemap.Data[alphabeticalpair] = make([]MessageEntry, size, capacity)
 		messagemap.Data[alphabeticalpair][0] = message
 	}
 	return
@@ -85,7 +91,6 @@ func (messagemap *MessageMap) getPeopleMessagesAfterTimestamp(peoplepair string,
 // Save time by not copying the array twice
 func (messagemap *MessageMap) printPeopleMessagesAfterTimestamp(peoplepair string, timestamp int64, writer http.ResponseWriter) {
 	writer.Header().Set("Content-Type", "application/json")
-	writer.WriteHeader(http.StatusOK)
 
 	messagemap.Mu.Lock()
 	defer messagemap.Mu.Unlock()
