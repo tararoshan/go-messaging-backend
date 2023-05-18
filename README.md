@@ -2,19 +2,24 @@
 Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Currently in-progress!
 
 Time estimate: 15hr
-Time spent: *~9hr + 40m* so far
+Time spent: *11h* so far
 
 ## Getting Started
-Clone this repo and run `go install *.go && go run *.go` in the cloned directory. To make a GET request, try
-
+> **Note**
+> You shouldn't copy the `$` symbol below. The `$` is just a reminder to type the commands into the terminal. Eg. if I write `$ echo 'hi!'` you should *actually* paste `echo 'hi!'` in the terminal.
+Clone this repo and, from the terminal of the cloned reposity, run
 ```bash
-curl http://localhost:3333
+$ go mod init mux
+$ go mod tidy
 ```
-
-For a post request, try
-
+You might need to download a few packages, like `gorilla/mux`. After you've done this once, to run the program, run
+`$ go install *.go && go run *.go`. To make a GET request, try
 ```bash
-curl -X POST -H 'Content-Type: application/json' -d '{"from": "zack", "to": "charles", "message": "pizza tonight?"}' http://localhost:3333
+$ curl http://localhost:3333
+```
+For a post request, try
+```bash
+$ curl -X POST -H 'Content-Type: application/json' -d '{"from": "zack", "to": "charles", "message": "pizza tonight?"}' http://localhost:3333
 ```
 
 ## Explanation/Blueprint
