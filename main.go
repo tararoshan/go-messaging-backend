@@ -13,16 +13,19 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// Defined in messagemap.go
-var messagemap *MessageMap
-
 func main() {
 	router := mux.NewRouter()
+	// Defined in messagemap.go
+	messagemap := makeMessageMap()
+
 	// Use the signature of the handler to register on server routes
-	router.
-		HandleFunc("/{userNameA}/{userNameB}/{fromTimeStamp}", getPeopleTime).
-		Methods("GET")
-	router.HandleFunc("/", postRoot).Methods("POST")
+	router.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
+			postRoot(writer, req, messagemap)
+		}).Methods("POST")
+	router.HandleFunc("/{userNameA}/{userNameB}/{fromTimeStamp}",
+		func(writer http.ResponseWriter, req *http.Request) {
+			getPeopleTime(writer, req, messagemap)
+		}).Methods("GET")
 
     // "nil" means use default server multiplexer
 	srv := &http.Server{
@@ -33,7 +36,6 @@ func main() {
         Handler: router,
     }
 
-	messagemap = makeMessageMap()
 	err := srv.ListenAndServe()
     if errors.Is(err, http.ErrServerClosed) {
 		fmt.Printf("Server closed. Typical behavior.\n")
@@ -43,7 +45,7 @@ func main() {
 	}
 }
 
-func postRoot(writer http.ResponseWriter, request_ptr *http.Request) {
+func postRoot(writer http.ResponseWriter, request_ptr *http.Request, messagemap *MessageMap) {
 	fmt.Printf("heard / request, parsing as POST\n")
 	// fmt.Printf("request: %s\n", request_ptr)
 	// io.WriteString(writer, "sent!\n")
@@ -70,7 +72,7 @@ func postRoot(writer http.ResponseWriter, request_ptr *http.Request) {
 	return
 }
 
-func getPeopleTime(writer http.ResponseWriter, request_ptr *http.Request) {
+func getPeopleTime(writer http.ResponseWriter, request_ptr *http.Request, messagemap *MessageMap) {
 	fmt.Printf("heard /userA/userB/time request, responding as GET\n")
 	// io.WriteString(writer, "GETting your data!\n")
 

@@ -3,7 +3,7 @@ package main
 
 import (
 	"bytes"
-	"time"
+	// "time"
 	"net/http/httptest"
 	"testing"
 )
@@ -14,16 +14,21 @@ import (
  */
 // Check for appropriate content headers and contents
 func TestPostRoot(t *testing.T) {
+	// Setup for test
+	messagemap := makeMessageMap()
 	mockbody := []byte(`{"from": "zack", "to": "charles", "message": "pizza tonight?"}`)
-	request := httptest.NewRequest("GET", "/", bytes.NewBuffer(mockbody))
-	recorder := httptest.NewRecorder()
-	postRoot(recorder, request)
 
-	messages := messagemap.getPeopleMessagesAfterTimestamp("charleszack", time.Now().Add(-5 * time.Second).Unix())
+	request := httptest.NewRequest("POST", "/", bytes.NewBuffer(mockbody))
+	recorder := httptest.NewRecorder()
+	postRoot(recorder, request, messagemap)
+
+	pp := getPeoplePair("zack", "charles")
+	messages := messagemap.getPeopleMessagesAfterTimestamp(pp, 0)
 
 	expectedLen := 1
 	if len(messages) != expectedLen  {
-		t.Errorf("Wrong number of messages. Expected %d but found %d", expectedLen, len(messages))
+		// Use fatal since we could get an out-of-bounds issue later
+		t.Fatalf("Wrong number of messages. Expected %d but found %d", expectedLen, len(messages))
 	}
 
 	expectedMessage := MessageEntry{
