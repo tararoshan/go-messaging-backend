@@ -3,7 +3,7 @@ package main_test
 
 import (
 	"fmt"
-	"net/http/httptest"
+	// "net/http/httptest"
 	"testing"
 )
 
@@ -11,7 +11,9 @@ import (
  * BASIC TESTS - named with the function they test after underscore. NOTE: use net/http/httptest.
  */
 // Check for appropriate content headers and contents
-func Test_postRoot(t *testing.T) {}
+func Test_postRoot(t *testing.T) {
+	fmt.Printf("test")
+}
 
 // Check for appropriate content headers and contents
 func Test_getPeopleTime(t *testing.T) {}

@@ -86,7 +86,7 @@ func getPeopleTime(writer http.ResponseWriter, request_ptr *http.Request) {
 
 	timestamp, err := strconv.ParseInt(routeVars["fromTimeStamp"], 10, 64)
 	if err != nil {
-		fmt.Printf("Error parsing timestamp from message. Error: ", err)
+		fmt.Printf("Error parsing timestamp from message. Error: %s", err)
 	}
 	// Content-Type header taken care of in method
 	messagemap.printPeopleMessagesAfterTimestamp(getPeoplePair(routeVars["userNameA"], routeVars["userNameB"]), timestamp, writer)
