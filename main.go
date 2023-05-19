@@ -3,7 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
-	"io"
+	// "io"
 	"encoding/json"
 	"net/http"
 	"os"
@@ -46,7 +46,7 @@ func main() {
 func postRoot(writer http.ResponseWriter, request_ptr *http.Request) {
 	fmt.Printf("heard / request, parsing as POST\n")
 	// fmt.Printf("request: %s\n", request_ptr)
-	io.WriteString(writer, "sent!\n")
+	// io.WriteString(writer, "sent!\n")
 
 	// Parse POST request and add timestamp
 	var me MessageEntry
@@ -72,7 +72,7 @@ func postRoot(writer http.ResponseWriter, request_ptr *http.Request) {
 
 func getPeopleTime(writer http.ResponseWriter, request_ptr *http.Request) {
 	fmt.Printf("heard /userA/userB/time request, responding as GET\n")
-	io.WriteString(writer, "GETting your data!\n")
+	// io.WriteString(writer, "GETting your data!\n")
 
 	routeVars := mux.Vars(request_ptr)
 	// fmt.Printf("request: %s\n", request_ptr)

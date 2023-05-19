@@ -1,22 +1,45 @@
 // Testing file for main.go
-package main_test
+package main
 
 import (
-	"fmt"
-	// "net/http/httptest"
+	"bytes"
+	"time"
+	"net/http/httptest"
 	"testing"
 )
 
 /**
- * BASIC TESTS - named with the function they test after underscore. NOTE: use net/http/httptest.
+ * BASIC TESTS - named with the function they test after underscore.
+ * NOTE: use net/http/httptest.
  */
 // Check for appropriate content headers and contents
-func Test_postRoot(t *testing.T) {
-	fmt.Printf("test")
+func TestPostRoot(t *testing.T) {
+	mockbody := []byte(`{"from": "zack", "to": "charles", "message": "pizza tonight?"}`)
+	request := httptest.NewRequest("GET", "/", bytes.NewBuffer(mockbody))
+	recorder := httptest.NewRecorder()
+	postRoot(recorder, request)
+
+	messages := messagemap.getPeopleMessagesAfterTimestamp("charleszack", time.Now().Add(-5 * time.Second).Unix())
+
+	expectedLen := 1
+	if len(messages) != expectedLen  {
+		t.Errorf("Wrong number of messages. Expected %d but found %d", expectedLen, len(messages))
+	}
+
+	expectedMessage := MessageEntry{
+		From: 		"zack",
+		To: 		"charles",
+		Message: 	"pizza tonight?",
+		// Not sure what time the message will be recorded at
+		At:			messages[0].At,
+	}
+	if messages[0] != expectedMessage {
+		t.Errorf("The message wasn't stored correctly. Expected %+v but found %+v", expectedMessage, messages[0])
+	}
 }
 
 // Check for appropriate content headers and contents
-func Test_getPeopleTime(t *testing.T) {}
+func TestGetPeopleTime(t *testing.T) {}
  
 /**
  * EXTRA TESTS - tests I thought would be useful for coverage or to check some
