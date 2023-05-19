@@ -13,7 +13,7 @@ $ go mod init mux
 $ go mod tidy
 ```
 You might need to download a few packages, like `gorilla/mux`. After you've done this once, to run the program, run
-`$ go install *.go && go run *.go`. To make a GET request, try
+`$ go install *.go && go run main.go messagemap.go`. To make a GET request, try
 ```bash
 $ curl http://localhost:3333
 ```
@@ -47,3 +47,5 @@ Here are the resources I used to build this. This was my first time writing anyt
 - [Alex Edwards's blogpost about parsing a Go request body](https://www.alexedwards.net/blog/how-to-properly-parse-a-json-request-body)
 - [JSON and Go](https://go.dev/blog/json)
 - [sort package](https://pkg.go.dev/sort)
+- [5 advanced testing techniques in Go](https://segment.com/blog/5-advanced-testing-techniques-in-go/)
+- [starter CI/CD workflows for GitHub](https://github.com/actions/starter-workflows/tree/main/ci)

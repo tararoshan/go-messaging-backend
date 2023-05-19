@@ -1,5 +1,5 @@
 // Testing file for messagemap.go
-package main
+package main_test
 
 import (
 	"fmt"
@@ -24,3 +24,5 @@ func Test_printPeopleMessagesAfterTimestamp(t *testing.T) {}
  * I noticed an error, so that it doesn't go unnoticed later.
  */
 func TestSortedMessageMap(t *testing.T) {}
+
+func TestLengthMessageMap(t *testing.T) {}
