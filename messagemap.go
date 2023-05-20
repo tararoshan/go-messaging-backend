@@ -90,8 +90,6 @@ func (messagemap *MessageMap) getPeopleMessagesAfterTimestamp(peoplepair string,
 
 // Save time by not copying the array twice when you return to caller
 func (messagemap *MessageMap) printPeopleMessagesAfterTimestamp(peoplepair string, timestamp int64, writer http.ResponseWriter) {
-	writer.Header().Set("Content-Type", "application/json")
-
 	messagemap.Mu.Lock()
 	defer messagemap.Mu.Unlock()
 
@@ -102,6 +100,7 @@ func (messagemap *MessageMap) printPeopleMessagesAfterTimestamp(peoplepair strin
 	})
 
 	// Write the slice of the slice as JSON
+	writer.Header().Set("Content-Type", "application/json")
 	err := json.NewEncoder(writer).Encode(messageslice[startindex:])
 	if err != nil {
 		fmt.Println("Error when encoding: ", err)

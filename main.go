@@ -20,9 +20,13 @@ func main() {
 
 	// Use the signature of the handler to register on server routes
 	router.HandleFunc("/", func(writer http.ResponseWriter, req *http.Request) {
-			postRoot(writer, req, messagemap)
-		}).Methods("POST")
+		postRoot(writer, req, messagemap)
+	}).Methods("POST")
 	router.HandleFunc("/{userNameA}/{userNameB}/{fromTimeStamp}",
+		func(writer http.ResponseWriter, req *http.Request) {
+			getPeopleTime(writer, req, messagemap)
+		}).Methods("GET")
+	router.HandleFunc("/{userNameA}/{userNameB}",
 		func(writer http.ResponseWriter, req *http.Request) {
 			getPeopleTime(writer, req, messagemap)
 		}).Methods("GET")
@@ -77,20 +81,22 @@ func getPeopleTime(writer http.ResponseWriter, request_ptr *http.Request, messag
 	// io.WriteString(writer, "GETting your data!\n")
 
 	routeVars := mux.Vars(request_ptr)
+	if routeVars["fromTimeStamp"] == "" {
+		fmt.Printf("got no fromTimeStamp\n")
+		routeVars["fromTimeStamp"] = "0"
+	}
 	// fmt.Printf("request: %s\n", request_ptr)
 	fmt.Printf("userNameA: %s, userNameB: %s, fromTimeStamp: %s\n", routeVars["userNameA"], routeVars["userNameB"], routeVars["fromTimeStamp"])
 
 	fmt.Println()
-
-	if len(routeVars["userNameA"]) == 0 || len(routeVars["userNameB"]) == 0 {
-		return
-	}
 
 	timestamp, err := strconv.ParseInt(routeVars["fromTimeStamp"], 10, 64)
 	if err != nil {
 		fmt.Printf("Error parsing timestamp from message. Error: %s", err)
 	}
 	// Content-Type header taken care of in method
+	writer.Header().Set("Content-Type", "application/json")
+	writer.WriteHeader(http.StatusOK)
 	messagemap.printPeopleMessagesAfterTimestamp(getPeoplePair(routeVars["userNameA"], routeVars["userNameB"]), timestamp, writer)
 	return
 }

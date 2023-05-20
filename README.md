@@ -2,7 +2,7 @@
 Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Currently in-progress!
 
 Time estimate: 15hr
-Time spent: *11h* so far
+Time spent: *15h* so far
 
 ## Getting Started
 > **Note**
@@ -15,7 +15,7 @@ $ go mod tidy
 You might need to download a few packages, like `gorilla/mux`. After you've done this once, to run the program, run
 `$ go install *.go && go run main.go messagemap.go`. To make a GET request, try
 ```bash
-$ curl http://localhost:3333
+$ curl http://localhost:3333/zack/charles/0
 ```
 For a post request, try
 ```bash
@@ -49,3 +49,4 @@ Here are the resources I used to build this. This was my first time writing anyt
 - [sort package](https://pkg.go.dev/sort)
 - [5 advanced testing techniques in Go](https://segment.com/blog/5-advanced-testing-techniques-in-go/)
 - [starter CI/CD workflows for GitHub](https://github.com/actions/starter-workflows/tree/main/ci)
+- [Understanding HTTP Requests & Responses in Golang](https://ciaranmcveigh5.medium.com/understanding-http-requests-responses-in-golang-a13e5e92bc4f)
