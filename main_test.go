@@ -66,7 +66,6 @@ func TestGetPeopleTime(t *testing.T) {
 			getPeopleTime(writer, req, messagemap)
 		}).Methods("GET")
 
-	// recorder := httptest.NewRecorder()
 	testServer := httptest.NewServer(router)
 	defer testServer.Close()
 
