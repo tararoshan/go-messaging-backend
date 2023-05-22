@@ -3,14 +3,14 @@ package main
 
 import (
 	"bytes"
-	// "fmt"
-	"io/ioutil"
 	"encoding/json"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
 	"testing"
 	"time"
+
 	"github.com/gorilla/mux"
 )
 
@@ -173,13 +173,3 @@ func TestGetPeopleTime(t *testing.T) {
 		t.Errorf("There was a message found between zack and charles after lastMessageTime: %v", messages)
 	}
 }
- 
-/**
- * EXTRA TESTS - tests I thought would be useful for coverage or to check some
- * synchronization cases. Also added a test if I noticed an error, so that it
- * doesn't go unnoticed later. NOTE: use "go" before a function to make a new
- * goroutine/thread of execution.
- */
-func TestWriteReadSynchronization(t *testing.T) {}
-
-func TestWriteReadTwiceSynchronization(t *testing.T) {}

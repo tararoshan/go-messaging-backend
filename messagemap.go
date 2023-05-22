@@ -19,11 +19,7 @@ type MessageEntry struct {
 // Designed to deterministically handle concurrent requests. Write preferring.
 type MessageMap struct {
 	Data                 map[string][]MessageEntry
-	Mu                   sync.Mutex
-	CondVar              sync.Cond
-	WriterActive         bool
-	NumWritersWaiting    int
-	NumReadersActive     int
+	Mu                   sync.RWMutex
 }
 
 type ByAt []MessageEntry
@@ -38,10 +34,6 @@ func makeMessageMap() *MessageMap {
 	messagemap := &MessageMap{}
 	m := make(map[string][]MessageEntry)
 	messagemap.Data = m
-	messagemap.WriterActive = false
-	messagemap.NumWritersWaiting = 0
-	messagemap.NumReadersActive = 0
-	messagemap.CondVar = *sync.NewCond(&messagemap.Mu)
 	return messagemap
 }
 
@@ -72,12 +64,11 @@ func (messagemap *MessageMap) enterMessage(message MessageEntry) {
 		messagemap.Data[alphabeticalpair] = make([]MessageEntry, size, capacity)
 		messagemap.Data[alphabeticalpair][0] = message
 	}
-	return
 }
 
 func (messagemap *MessageMap) getPeopleMessagesAfterTimestamp(peoplepair string, timestamp int64) []MessageEntry {
-	messagemap.Mu.Lock()
-	defer messagemap.Mu.Unlock()
+	messagemap.Mu.RLock()
+	defer messagemap.Mu.RUnlock()
 
 	messageslice := messagemap.Data[peoplepair]
 	// Find the index
@@ -90,8 +81,8 @@ func (messagemap *MessageMap) getPeopleMessagesAfterTimestamp(peoplepair string,
 
 // Save time by not copying the array twice when you return to caller
 func (messagemap *MessageMap) printPeopleMessagesAfterTimestamp(peoplepair string, timestamp int64, writer http.ResponseWriter) {
-	messagemap.Mu.Lock()
-	defer messagemap.Mu.Unlock()
+	messagemap.Mu.RLock()
+	defer messagemap.Mu.RUnlock()
 
 	messageslice := messagemap.Data[peoplepair]
 	// Find the index
@@ -105,6 +96,5 @@ func (messagemap *MessageMap) printPeopleMessagesAfterTimestamp(peoplepair strin
 	if err != nil {
 		fmt.Println("Error when encoding: ", err)
 		writer.WriteHeader(http.StatusInternalServerError)
-		return
 	}
 }

@@ -35,6 +35,9 @@ Considering using [Redis](https://redis.io/docs/about/) to take care of concurre
 5/16/23 Update:
 It's not simple at all, but I still want to try.
 
+5/21/23 Update:
+Turns out there's a [RWMutex](https://pkg.go.dev/sync#RWMutex) in Go, so it might be that simple after all.
+
 ## Reading
 Here are the resources I used to build this. This was my first time writing anything in Go, so I think this section should be beginner-friendly, assuming you have some programming background!
 
