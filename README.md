@@ -1,5 +1,5 @@
 # Go Messaging Service
-Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Currently in-progress!
+Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Not under active development.
 
 Time estimate: 15hr
 Time spent: 17hr
