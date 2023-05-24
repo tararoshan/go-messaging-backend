@@ -2,6 +2,7 @@
 Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Not under active development.
 
 Time estimate: 15hr
+
 Time spent: 17hr
 
 ## Getting Started
@@ -53,3 +54,4 @@ Here are the resources I used to build this. This was my first time writing anyt
 - [5 advanced testing techniques in Go](https://segment.com/blog/5-advanced-testing-techniques-in-go/)
 - [starter CI/CD workflows for GitHub](https://github.com/actions/starter-workflows/tree/main/ci)
 - [Understanding HTTP Requests & Responses in Golang](https://ciaranmcveigh5.medium.com/understanding-http-requests-responses-in-golang-a13e5e92bc4f)
+- [https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/go-environment.html](Using the Elastic Beanstalk Go platform)

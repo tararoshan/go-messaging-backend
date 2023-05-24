@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	// "io"
 	"encoding/json"
 	"net/http"
 	"os"
@@ -33,7 +32,8 @@ func main() {
 
     // "nil" means use default server multiplexer
 	srv := &http.Server{
-        Addr:         ":3333",
+		// EB uses port 5000, so I changed this just in case
+        Addr:         ":5000",
         WriteTimeout: time.Second * 15,
         ReadTimeout:  time.Second * 15,
         IdleTimeout:  time.Second * 60,
