@@ -1,7 +1,8 @@
 # Go Messaging Service
 Test it out for yourself using [http://gomessagingbackend-dev.us-east-2.elasticbeanstalk.com/](http://gomessagingbackend-dev.us-east-2.elasticbeanstalk.com/)! *Note: this is no longer up because I was spending too many free credits! You can still run this locally*
 
-Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71). Currently working on adding Cloudflare!
+Based on [this task](https://gist.github.com/zackbloom/57124a029f6bd1b8ab0e3ea5aff34d71).
+I may later work on adding Cloudflare and a nice frontend!
 
 Time estimate: 16hr
 
